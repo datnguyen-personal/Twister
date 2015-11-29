@@ -22,6 +22,10 @@ class NewTweetViewController: UIViewController {
     
     @IBOutlet weak var tweetTextField: UITextField!
     
+    @IBOutlet weak var countLabel: UILabel!
+    
+    @IBOutlet weak var tweetButton: UIBarButtonItem!
+    
     weak var newTweetDelegate: NewTweetViewControllerDelegate?
     
     var user: User!
@@ -45,7 +49,14 @@ class NewTweetViewController: UIViewController {
     }
 
     @IBAction func onTweetTapped(sender: AnyObject) {
-        let parameters: [String : String] = ["status": tweetTextField.text! as String]
+        let tweetText = tweetTextField.text! as String
+        
+        if tweetText == "" {
+            Utils.showDialog("Error", msg: "Please add tweet", vc: self)
+            return
+        }
+        
+        let parameters: [String : String] = ["status": tweetText]
         
         TwisterClient.shareInstance.postATweetWithParams(parameters) { (tweet: Tweet?, error: NSError?) -> () in
             
@@ -57,6 +68,17 @@ class NewTweetViewController: UIViewController {
         }
     }
     
+    @IBAction func onTweetTextChanged(sender: AnyObject) {
+        let tweetText = tweetTextField.text! as String
+        
+        let count = 140 - tweetText.characters.count
+        
+        countLabel.text = String(count)
+        
+        if count < 0 {
+            tweetButton.enabled = false
+        }
+    }
     /*
     // MARK: - Navigation
 

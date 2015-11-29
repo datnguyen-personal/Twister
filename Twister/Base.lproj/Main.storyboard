@@ -259,12 +259,23 @@
                                 <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" placeholder="What's happening?" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Apk-XX-1Id">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" placeholder="What's happening?" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Apk-XX-1Id">
                                 <rect key="frame" x="10" y="149" width="300" height="404"/>
                                 <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="onTweetTextChanged:" destination="neU-Ug-oYV" eventType="editingChanged" id="Eav-y2-puf"/>
+                                </connections>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="140" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I4E-iR-tgl">
+                                <rect key="frame" x="284.5" y="123" width="25.5" height="18"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -272,9 +283,11 @@
                             <constraint firstItem="Apk-XX-1Id" firstAttribute="top" secondItem="3Lv-us-JCX" secondAttribute="bottom" constant="15" id="32K-K6-jDs"/>
                             <constraint firstItem="Apk-XX-1Id" firstAttribute="leading" secondItem="xRh-1O-7gV" secondAttribute="leading" constant="10" id="5SN-H2-aR1"/>
                             <constraint firstItem="3Lv-us-JCX" firstAttribute="top" secondItem="hw8-Z4-PUw" secondAttribute="bottom" constant="10" id="CVU-s7-gHf"/>
+                            <constraint firstAttribute="trailing" secondItem="I4E-iR-tgl" secondAttribute="trailing" constant="10" id="EiB-vv-H1u"/>
                             <constraint firstAttribute="trailing" secondItem="Apk-XX-1Id" secondAttribute="trailing" constant="10" id="Ixd-BR-nNX"/>
                             <constraint firstItem="6ga-MU-eEn" firstAttribute="leading" secondItem="3Lv-us-JCX" secondAttribute="trailing" constant="8" id="VLM-ok-Xwe"/>
                             <constraint firstItem="Of5-uH-cEN" firstAttribute="top" secondItem="6ga-MU-eEn" secondAttribute="bottom" constant="6" id="bUg-iY-CID"/>
+                            <constraint firstItem="Apk-XX-1Id" firstAttribute="top" secondItem="I4E-iR-tgl" secondAttribute="bottom" constant="8" id="cYr-p1-ddS"/>
                             <constraint firstItem="6ga-MU-eEn" firstAttribute="top" secondItem="hw8-Z4-PUw" secondAttribute="bottom" constant="18" id="fvo-0A-WwW"/>
                             <constraint firstItem="Of5-uH-cEN" firstAttribute="leading" secondItem="3Lv-us-JCX" secondAttribute="trailing" constant="8" id="g2f-ru-U6y"/>
                             <constraint firstItem="Vr6-XV-JQv" firstAttribute="top" secondItem="Apk-XX-1Id" secondAttribute="bottom" constant="15" id="p3w-Zn-P5R"/>
@@ -294,9 +307,11 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="countLabel" destination="I4E-iR-tgl" id="Qzq-00-ncU"/>
                         <outlet property="nameLabel" destination="6ga-MU-eEn" id="dYh-cN-XNL"/>
                         <outlet property="profileImageView" destination="3Lv-us-JCX" id="kIz-CH-nwe"/>
                         <outlet property="screennameLabel" destination="Of5-uH-cEN" id="7Qu-IM-2QL"/>
+                        <outlet property="tweetButton" destination="Nr9-zD-dkG" id="Jxo-gz-fDQ"/>
                         <outlet property="tweetTextField" destination="Apk-XX-1Id" id="qh2-ob-nB4"/>
                     </connections>
                 </viewController>

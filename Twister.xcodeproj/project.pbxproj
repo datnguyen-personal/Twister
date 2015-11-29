@@ -23,6 +23,7 @@
 		AACE489D1C0A25340034165B /* ExtraCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACE489C1C0A25340034165B /* ExtraCell.swift */; };
 		AACE489F1C0A254B0034165B /* ActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACE489E1C0A254B0034165B /* ActionCell.swift */; };
 		AACE48A21C0AA7900034165B /* NewTweetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACE48A11C0AA7900034165B /* NewTweetViewController.swift */; };
+		AACE48A41C0B78790034165B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACE48A31C0B78790034165B /* Utils.swift */; };
 		BD3A3105E29F168D66BF97BC /* Pods_Twister.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9E11677AADBB42BA0843D5C /* Pods_Twister.framework */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +50,7 @@
 		AACE489C1C0A25340034165B /* ExtraCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtraCell.swift; sourceTree = "<group>"; };
 		AACE489E1C0A254B0034165B /* ActionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionCell.swift; sourceTree = "<group>"; };
 		AACE48A11C0AA7900034165B /* NewTweetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewTweetViewController.swift; sourceTree = "<group>"; };
+		AACE48A31C0B78790034165B /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +142,7 @@
 			children = (
 				AACE488F1C07068D0034165B /* User.swift */,
 				AACE48911C07082A0034165B /* Tweet.swift */,
+				AACE48A31C0B78790034165B /* Utils.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				AA8388D91C04BF4F00034613 /* MainViewController.swift in Sources */,
 				AACE489B1C0A237D0034165B /* DetailCell.swift in Sources */,
 				AACE489D1C0A25340034165B /* ExtraCell.swift in Sources */,
+				AACE48A41C0B78790034165B /* Utils.swift in Sources */,
 				AA59EC431C06121B0040F74E /* WelcomeViewController.swift in Sources */,
 				AACE48901C07068D0034165B /* User.swift in Sources */,
 				AACE48951C0839F60034165B /* TweetCell.swift in Sources */,
