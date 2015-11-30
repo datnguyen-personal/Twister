@@ -41,6 +41,12 @@ class NewTweetViewController: UIViewController {
         screennameLabel.text = user.screenname
         profileImageView.setImageWithURL(NSURL(string: user.profileimageURL!)!)
         
+        if tweet != nil {
+            tweetTextField.text = "@\(tweet!.user!.screenname!) "
+        }
+        
+        tweetTextField.becomeFirstResponder()
+        
     }
 
     override func didReceiveMemoryWarning() {

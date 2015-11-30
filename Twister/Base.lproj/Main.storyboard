@@ -366,6 +366,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tweetTableView" destination="3tF-gc-rkF" id="tdC-Y8-gES"/>
+                        <segue destination="IET-Hr-74e" kind="modal" identifier="replySegue" id="fPl-5r-fbU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jrf-sL-g1V" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -406,7 +407,7 @@
                                 <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" placeholder="What's happening?" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Apk-XX-1Id">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" placeholder="What's happening?" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Apk-XX-1Id">
                                 <rect key="frame" x="10" y="149" width="300" height="404"/>
                                 <animations/>
                                 <nil key="textColor"/>
@@ -469,7 +470,6 @@
         <!--Tweet-->
         <scene sceneID="hcd-CL-pWH">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cc3-sY-eKX" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="3Q0-lE-7oH" customClass="TweetTableViewController" customModule="Twister" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="82" sectionHeaderHeight="28" sectionFooterHeight="28" id="E0d-Ft-TAd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -676,6 +676,7 @@
                         <outlet property="tweetLabel" destination="dqm-4O-gue" id="PjV-zJ-L83"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cc3-sY-eKX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1544" y="275"/>
         </scene>
@@ -729,6 +730,6 @@
         <image name="logo" width="201" height="163"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="XAU-gb-iCD"/>
+        <segue reference="fPl-5r-fbU"/>
     </inferredMetricsTieBreakers>
 </document>

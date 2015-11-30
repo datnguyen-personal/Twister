@@ -43,6 +43,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cell = tweetTableView.dequeueReusableCellWithIdentifier("tweetCell") as! TweetCell
         cell.tweet = tweets![indexPath.row]
         
+        cell.replyButton.tag = indexPath.row
+        
         return cell
     }
     
@@ -123,12 +125,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        let cell = sender as! UITableViewCell
-        let indexPath = tweetTableView.indexPathForCell(cell)!
         
         switch segue.identifier! {
         case "detailSegue":
             
+            let cell = sender as! UITableViewCell
+            let indexPath = tweetTableView.indexPathForCell(cell)!
             
             let tweetViewController = segue.destinationViewController as! TweetTableViewController
             
@@ -149,7 +151,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             let newTweetViewController = newTweetNavigationController.topViewController as! NewTweetViewController
             
             newTweetViewController.newTweetDelegate = self
-            newTweetViewController.tweet = tweets![indexPath.row]
+            newTweetViewController.tweet = tweets![(sender?.tag)!]
             break
             
         default: break
