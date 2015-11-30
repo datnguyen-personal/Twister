@@ -45,6 +45,10 @@ class TweetTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
+        if tweet.user?.id == User.currentUser?.id {
+            retweetButton.enabled = false
+        }
+        
         nameLabel.text = tweet.user?.name
         screennameLabel.text = "@\((tweet.user?.screenname)!)"
         tweetLabel.text = tweet.text
@@ -119,12 +123,53 @@ class TweetTableViewController: UITableViewController {
     
     @IBAction func onReplyTapped(sender: AnyObject) {
         
+        
     }
     
     @IBAction func onRetweetTapped(sender: AnyObject) {
         
         if tweet.isRetweeted! {
-            print("Remove retweet")
+            
+            let UndoRetweetAlert = UIAlertController(title: "Undi Retweet", message: "Undo Retweet?.", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            UndoRetweetAlert.addAction(UIAlertAction(title: "Confirm", style: .Default, handler: { (action: UIAlertAction!) in
+                var id: String!
+                
+                if self.tweet.retweet != nil {
+                    id = self.tweet.retweet?.id
+                } else {
+                    id = self.tweet.id
+                }
+                
+                TwisterClient.shareInstance.getRetweetWithID(id, completion: { (tweet, error) -> () in
+                    if tweet != nil && tweet?.currentUserRetweetID != nil {
+                        TwisterClient.shareInstance.removeARetweetWithID((tweet?.currentUserRetweetID!)!, completion: { (result, error) -> () in
+                            if result != nil {
+                                self.tweet.isRetweeted = false
+                                self.tweet.numberOfRetweets = self.tweet.numberOfRetweets! - 1
+                                
+                                if self.tweet.numberOfRetweets != nil {
+                                    self.retweetLabel.text = String(self.tweet.numberOfRetweets!)
+                                } else {
+                                    self.retweetLabel.text = "0"
+                                }
+                                
+                                self.retweetButton.setImage(UIImage(named: "RetweetIcon"), forState: .Normal)
+                                
+                                self.tweetDelegate?.tweetTableViewController(self, didUpdateATweet: self.tweet, row: self.row)
+                            }
+                        })
+                    }
+                })
+            }))
+            
+            UndoRetweetAlert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { (action: UIAlertAction!) in
+                UndoRetweetAlert.dismissViewControllerAnimated(true, completion: nil)
+            }))
+            
+            presentViewController(UndoRetweetAlert, animated: true, completion: nil)
+            
+            
         } else {
             TwisterClient.shareInstance.postARetweet(tweet.id!) { (result, error) -> () in
                 if result != nil {
@@ -187,6 +232,15 @@ class TweetTableViewController: UITableViewController {
                 
             })
         }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        let newTweetNavigationController = segue.destinationViewController as! UINavigationController
+        
+        let newTweetViewController = newTweetNavigationController.topViewController as! NewTweetViewController
+        
+        newTweetViewController.tweet = tweet
     }
     
 

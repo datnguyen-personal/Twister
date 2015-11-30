@@ -87,9 +87,11 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Twister/AFNetworking.framework"
   install_framework "Pods-Twister/BDBOAuth1Manager.framework"
   install_framework "Pods-Twister/KVNProgress.framework"
+  install_framework "Pods-Twister/ReachabilitySwift.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Twister/AFNetworking.framework"
   install_framework "Pods-Twister/BDBOAuth1Manager.framework"
   install_framework "Pods-Twister/KVNProgress.framework"
+  install_framework "Pods-Twister/ReachabilitySwift.framework"
 fi

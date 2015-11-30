@@ -7,5 +7,6 @@ target 'Twister' do
   pod "AFNetworking"
   pod "BDBOAuth1Manager"
   pod "KVNProgress"
+  pod 'ReachabilitySwift'
 end
 

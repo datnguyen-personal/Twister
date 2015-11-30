@@ -21,14 +21,25 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var retweetButton: UIButton!
     @IBOutlet weak var favoriteButton: UIButton!
     
+    @IBOutlet weak var retweetLabel: UILabel!
+    @IBOutlet weak var favoriteLabel: UILabel!
     
     var tweet: Tweet! {
         didSet{
-            screennameLabel.text = tweet.user!.name
-            usernameLabel.text = "@\((tweet.user!.screenname)!)"
+            if tweet.retweet != nil {
+                screennameLabel.text = tweet.retweet!.user!.name
+                usernameLabel.text = "@\((tweet.retweet!.user!.screenname)!)"
+                profileImageView.setImageWithURL(NSURL(string: (tweet.retweet!.user!.profileimageURL)!)!)
+                tweetLabel.text = tweet.retweet!.text
+            } else {
+                screennameLabel.text = tweet.user!.name
+                usernameLabel.text = "@\((tweet.user!.screenname)!)"
+                profileImageView.setImageWithURL(NSURL(string: (tweet.user?.profileimageURL)!)!)
+                tweetLabel.text = tweet.text
+            }
+            
             createdAtLabel.text = tweet.createAtString
-            tweetLabel.text = tweet.text
-            profileImageView.setImageWithURL(NSURL(string: (tweet.user?.profileimageURL)!)!)
+            
             createdAtLabel.text = tweet.timeOffSet
             
             if tweet.isFavorite! {
@@ -44,6 +55,118 @@ class TweetCell: UITableViewCell {
                 
                 retweetButton.setImage(UIImage(named: "RetweetIcon"), forState: .Normal)
             }
+            
+            if self.tweet.numberOfFavorites != nil {
+                self.favoriteLabel.text = String(self.tweet.numberOfFavorites!)
+            } else {
+                self.favoriteLabel.text = "0"
+            }
+            
+            if self.tweet.numberOfRetweets != nil {
+                self.retweetLabel.text = String(self.tweet.numberOfRetweets!)
+            } else {
+                self.retweetLabel.text = "0"
+            }
+            
+            if tweet.user?.id == User.currentUser?.id {
+                retweetButton.enabled = false
+            }
+        }
+    }
+    
+    @IBAction func onReplyTapped(sender: AnyObject) {
+        
+    }
+    
+    @IBAction func onRetweetTapped(sender: AnyObject) {
+        if tweet.isRetweeted! {
+            
+            var id: String!
+            
+            if self.tweet.retweet != nil {
+                id = self.tweet.retweet?.id
+            } else {
+                id = self.tweet.id
+            }
+            
+            TwisterClient.shareInstance.getRetweetWithID(id, completion: { (tweet, error) -> () in
+                if tweet != nil && tweet?.currentUserRetweetID != nil {
+                    TwisterClient.shareInstance.removeARetweetWithID((tweet?.currentUserRetweetID!)!, completion: { (result, error) -> () in
+                        if result != nil {
+                            self.tweet.isRetweeted = false
+                            self.tweet.numberOfRetweets = self.tweet.numberOfRetweets! - 1
+                            
+                            if self.tweet.numberOfRetweets != nil {
+                                self.retweetLabel.text = String(self.tweet.numberOfRetweets!)
+                            } else {
+                                self.retweetLabel.text = "0"
+                            }
+                            
+                            self.retweetButton.setImage(UIImage(named: "RetweetIcon"), forState: .Normal)
+                            
+                        }
+                    })
+                }
+            })            
+            
+        } else {
+            TwisterClient.shareInstance.postARetweet(tweet.id!) { (result, error) -> () in
+                if result != nil {
+                    self.tweet.isRetweeted = true
+                    self.tweet.numberOfRetweets = self.tweet.numberOfRetweets! + 1
+                    
+                    if self.tweet.numberOfRetweets != nil {
+                        self.retweetLabel.text = String(self.tweet.numberOfRetweets!)
+                    } else {
+                        self.retweetLabel.text = "0"
+                    }
+                    
+                    self.retweetButton.setImage(UIImage(named: "ActiveRetweet"), forState: .Normal)
+                    
+                }
+            }
+        }
+    }
+    
+    @IBAction func onFavoriteTapped(sender: AnyObject) {
+        let parameters: [String : String] = ["id": tweet.id!]
+        
+        if tweet.isFavorite! {
+            TwisterClient.shareInstance.removeFavoriteWithParams(parameters, completion: { (tweet, error) -> () in
+                if tweet != nil {
+                    self.tweet.isFavorite = false
+                    self.tweet.numberOfFavorites = self.tweet.numberOfFavorites! - 1
+                    
+                    if self.tweet.numberOfFavorites != nil {
+                        self.favoriteLabel.text = String(self.tweet.numberOfFavorites!)
+                    } else {
+                        self.favoriteLabel.text = "0"
+                    }
+                    
+                    self.favoriteButton.setImage(UIImage(named: "FavoriteIcon"), forState: .Normal)
+                    
+                    
+                }
+            })
+            
+        } else {
+            
+            TwisterClient.shareInstance.postFavoriteWithParams(parameters, completion: { (tweet, error) -> () in
+                if tweet != nil {
+                    self.tweet.isFavorite = true
+                    self.tweet.numberOfFavorites = self.tweet.numberOfFavorites! + 1
+                    
+                    if self.tweet.numberOfFavorites != nil {
+                        self.favoriteLabel.text = String(self.tweet.numberOfFavorites!)
+                    } else {
+                        self.favoriteLabel.text = "0"
+                    }
+                    
+                    self.favoriteButton.setImage(UIImage(named: "ActiveFavorite"), forState: .Normal)
+                    
+                }
+                
+            })
         }
     }
     

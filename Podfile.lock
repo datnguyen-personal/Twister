@@ -24,15 +24,18 @@ PODS:
     - AFNetworking/NSURLConnection (~> 2.6.0)
     - AFNetworking/NSURLSession (~> 2.6.0)
   - KVNProgress (2.2.1)
+  - ReachabilitySwift (2.3)
 
 DEPENDENCIES:
   - AFNetworking
   - BDBOAuth1Manager
   - KVNProgress
+  - ReachabilitySwift
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   BDBOAuth1Manager: cd5a5872f355ca38180d52ca2dd844f0b0c84797
   KVNProgress: 7001d2d16a2755cee5599e8e485befe056f2197b
+  ReachabilitySwift: 2ac9df18a443901f06caae38a9f5431219a4c36a
 
 COCOAPODS: 0.39.0

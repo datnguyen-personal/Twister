@@ -20,6 +20,7 @@ class User: NSObject {
     var profileimageURL: String?
     var tagline: String?
     var dictionary: NSDictionary
+    var id: String?
     
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
@@ -28,6 +29,7 @@ class User: NSObject {
         self.screenname = dictionary["screen_name"] as? String
         self.profileimageURL = dictionary["profile_image_url_https"] as? String
         self.tagline = dictionary["description"] as? String
+        self.id = dictionary["id_str"] as? String
     }
     
     func doLogOut(){

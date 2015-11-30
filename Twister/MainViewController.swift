@@ -19,21 +19,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var isInitiatingData: Bool = true
     
-    var replyTapGesture: UITapGestureRecognizer!
-    
-    var retweetTapGesture: UITapGestureRecognizer!
-    
-    var favoriteTapGesture: UITapGestureRecognizer!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        replyTapGesture = UITapGestureRecognizer(target: self, action: "onReplyTapped")
-        
-        retweetTapGesture = UITapGestureRecognizer(target: self, action: "onRetweetTapped")
-        
-        favoriteTapGesture = UITapGestureRecognizer(target: self, action: "onFavoriteTapped")
         
         fetchTweets(true)
         
@@ -41,7 +30,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         setupNavigationBar()
         
-        NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: "onRefreshTweets", userInfo: nil, repeats: true)
+        //NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: "onRefreshTweets", userInfo: nil, repeats: true)
         
     }
 
@@ -53,15 +42,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tweetTableView.dequeueReusableCellWithIdentifier("tweetCell") as! TweetCell
         cell.tweet = tweets![indexPath.row]
-        
-        cell.replyButton.addTarget(self, action: "onReplyTapped", forControlEvents: UIControlEvents.TouchUpInside)
-        cell.replyButton.tag = indexPath.row
-        
-        cell.retweetButton.addTarget(self, action: "onRetweetTapped", forControlEvents: UIControlEvents.TouchUpInside)
-        cell.retweetButton.tag = indexPath.row
-        
-        cell.favoriteButton.addTarget(self, action: "onFavoriteTapped", forControlEvents: UIControlEvents.TouchUpInside)
-        cell.favoriteButton.tag = indexPath.row
         
         return cell
     }
@@ -133,6 +113,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         logoutAlert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { (action: UIAlertAction!) in
             logoutAlert.dismissViewControllerAnimated(true, completion: nil)
+            self.tweetTableView.reloadData()
         }))
         
         presentViewController(logoutAlert, animated: true, completion: nil)
@@ -142,10 +123,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        let cell = sender as! UITableViewCell
+        let indexPath = tweetTableView.indexPathForCell(cell)!
+        
         switch segue.identifier! {
         case "detailSegue":
-            let cell = sender as! UITableViewCell
-            let indexPath = tweetTableView.indexPathForCell(cell)!
+            
             
             let tweetViewController = segue.destinationViewController as! TweetTableViewController
             
@@ -158,8 +141,15 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             let newTweetNavigationController = segue.destinationViewController as! UINavigationController
             let newTweetViewController = newTweetNavigationController.topViewController as! NewTweetViewController
             
-            newTweetViewController.user = User.currentUser
             newTweetViewController.newTweetDelegate = self
+            break
+            
+        case "replyTweetSegue":
+            let newTweetNavigationController = segue.destinationViewController as! UINavigationController
+            let newTweetViewController = newTweetNavigationController.topViewController as! NewTweetViewController
+            
+            newTweetViewController.newTweetDelegate = self
+            newTweetViewController.tweet = tweets![indexPath.row]
             break
             
         default: break
@@ -211,19 +201,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         onRefresh()
         
-    }
-    
-    func onReplyTapped() {
-        print("Reply Tapped")
-        
-    }
-    
-    func onRetweetTapped() {
-        print("Retweet Tapped")
-    }
-    
-    func onFavoriteTapped() {
-        print("Favorite Tapped")
     }
 
 }

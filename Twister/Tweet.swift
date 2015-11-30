@@ -20,6 +20,10 @@ class Tweet: NSObject {
     var isFavorite: Bool?
     var id: String?
     
+    var retweet: Tweet?
+    
+    var currentUserRetweetID: String?
+    
     init(dictionary: NSDictionary) {
         self.user = User(dictionary: (dictionary["user"] as? NSDictionary)!)
         self.text = dictionary["text"] as? String
@@ -46,6 +50,16 @@ class Tweet: NSObject {
         
         self.id = dictionary["id_str"] as? String
         
+        if dictionary["retweeted_status"] != nil {
+            self.retweet = Tweet(dictionary: dictionary["retweeted_status"] as! NSDictionary)
+        } else {
+            self.retweet = nil
+        }
+        
+        if dictionary["current_user_retweet"] != nil {
+            let currentUserRetweet = dictionary["current_user_retweet"] as! NSDictionary
+            self.currentUserRetweetID = currentUserRetweet["id_str"] as? String
+        }
     }
     
     class func tweetsWithArray(array: [NSDictionary]) -> [Tweet] {

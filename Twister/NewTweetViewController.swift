@@ -30,13 +30,17 @@ class NewTweetViewController: UIViewController {
     
     var user: User!
     
+    var tweet: Tweet?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        user = User.currentUser
         nameLabel.text = "@\((user.name)!)"
         screennameLabel.text = user.screenname
         profileImageView.setImageWithURL(NSURL(string: user.profileimageURL!)!)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -56,7 +60,11 @@ class NewTweetViewController: UIViewController {
             return
         }
         
-        let parameters: [String : String] = ["status": tweetText]
+        var parameters: [String : String] = ["status": tweetText]
+        
+        if tweet != nil {
+            parameters["in_reply_to_status_id"] = tweet?.id
+        }
         
         TwisterClient.shareInstance.postATweetWithParams(parameters) { (tweet: Tweet?, error: NSError?) -> () in
             

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AA59EC431C06121B0040F74E /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA59EC421C06121B0040F74E /* WelcomeViewController.swift */; };
 		AA8388C41C04BE8F00034613 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8388C31C04BE8F00034613 /* AppDelegate.swift */; };
 		AA8388C91C04BE8F00034613 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA8388C71C04BE8F00034613 /* Main.storyboard */; };
 		AA8388CB1C04BE8F00034613 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA8388CA1C04BE8F00034613 /* Assets.xcassets */; };
@@ -31,7 +30,6 @@
 		389EB5E828A3072E61C45CBC /* Pods-Twister.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twister.release.xcconfig"; path = "Pods/Target Support Files/Pods-Twister/Pods-Twister.release.xcconfig"; sourceTree = "<group>"; };
 		7D7E81ECCAA463DEEB247919 /* Pods-Twister.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twister.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Twister/Pods-Twister.debug.xcconfig"; sourceTree = "<group>"; };
 		A9E11677AADBB42BA0843D5C /* Pods_Twister.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Twister.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AA59EC421C06121B0040F74E /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		AA8388C01C04BE8F00034613 /* Twister.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twister.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA8388C31C04BE8F00034613 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA8388C81C04BE8F00034613 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -130,7 +128,6 @@
 			children = (
 				AA8388D61C04BF3D00034613 /* LoginViewController.swift */,
 				AA8388D81C04BF4F00034613 /* MainViewController.swift */,
-				AA59EC421C06121B0040F74E /* WelcomeViewController.swift */,
 				AACE48981C0A213B0034165B /* TweetTableViewController.swift */,
 				AACE48A11C0AA7900034165B /* NewTweetViewController.swift */,
 			);
@@ -284,7 +281,6 @@
 				AACE489B1C0A237D0034165B /* DetailCell.swift in Sources */,
 				AACE489D1C0A25340034165B /* ExtraCell.swift in Sources */,
 				AACE48A41C0B78790034165B /* Utils.swift in Sources */,
-				AA59EC431C06121B0040F74E /* WelcomeViewController.swift in Sources */,
 				AACE48901C07068D0034165B /* User.swift in Sources */,
 				AACE48951C0839F60034165B /* TweetCell.swift in Sources */,
 				AACE489F1C0A254B0034165B /* ActionCell.swift in Sources */,

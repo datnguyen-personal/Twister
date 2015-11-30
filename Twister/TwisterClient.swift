@@ -39,6 +39,31 @@ class TwisterClient: BDBOAuth1RequestOperationManager {
         }
     }
     
+    func removeARetweetWithID(id: String, completion:(result :Tweet?, error: NSError?) -> ()){
+        POST("1.1/statuses/destroy/\(id).json", parameters: nil, success: { (operation: AFHTTPRequestOperation, response: AnyObject) -> Void in
+            
+            let tweet = Tweet(dictionary: response as! NSDictionary)
+            completion(result: tweet, error: nil)
+            
+            }) { (operation: AFHTTPRequestOperation?, error: NSError) -> Void in
+                
+                print("Failed to remove retweet")
+                completion(result: nil, error: error)
+                
+        }
+    }
+    
+    func getRetweetWithID(id: String, completion:(tweet :Tweet?, error: NSError?) -> ()) {
+        GET("https://api.twitter.com/1.1/statuses/show/\(id).json?include_my_retweet=1", parameters: nil, success: { (operation: AFHTTPRequestOperation, response: AnyObject) -> Void in
+            let tweet = Tweet(dictionary: response as! NSDictionary)
+            completion(tweet: tweet, error: nil)
+            
+            }, failure: { (operation: AFHTTPRequestOperation?, error: NSError) -> Void in
+                print("Failed to get home timeline")
+                completion(tweet: nil, error: error)
+        })
+    }
+    
     func postFavoriteWithParams(params: NSDictionary?, completion:(tweet:Tweet?, error: NSError?) -> ()){
         POST("1.1/favorites/create.json", parameters: params, success: { (operation: AFHTTPRequestOperation, response: AnyObject) -> Void in
             
