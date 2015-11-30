@@ -1,16 +1,15 @@
 //
-//  TweetCell.swift
+//  RetweetCell.swift
 //  Twister
 //
-//  Created by Dat Nguyen on 27/11/15.
+//  Created by Dat Nguyen on 30/11/15.
 //  Copyright © 2015 datnguyen. All rights reserved.
 //
 
 import UIKit
-import AFNetworking
 
-class TweetCell: UITableViewCell {
-
+class RetweetCell: UITableViewCell {
+    
     @IBOutlet weak var profileImageView: UIImageView!
     
     @IBOutlet weak var screennameLabel: UILabel!
@@ -23,6 +22,7 @@ class TweetCell: UITableViewCell {
     
     @IBOutlet weak var retweetLabel: UILabel!
     @IBOutlet weak var favoriteLabel: UILabel!
+    @IBOutlet weak var topLabel: UILabel!
     
     var tweet: Tweet! {
         didSet{
@@ -31,11 +31,13 @@ class TweetCell: UITableViewCell {
                 usernameLabel.text = "@\((tweet.retweet!.user!.screenname)!)"
                 profileImageView.setImageWithURL(NSURL(string: (tweet.retweet!.user!.profileimageURL)!)!)
                 tweetLabel.text = tweet.retweet!.text
+                topLabel.text = "\(tweet.user!.name!) Retweeted"
             } else {
                 screennameLabel.text = tweet.user!.name
                 usernameLabel.text = "@\((tweet.user!.screenname)!)"
                 profileImageView.setImageWithURL(NSURL(string: (tweet.user?.profileimageURL)!)!)
                 tweetLabel.text = tweet.text
+                topLabel.text = "in reply to @\(tweet.inReplyToUserID!)"
             }
             
             createdAtLabel.text = tweet.createAtString
@@ -103,7 +105,7 @@ class TweetCell: UITableViewCell {
                         }
                     })
                 }
-            })            
+            })
             
         } else {
             TwisterClient.shareInstance.postARetweet(tweet.id!) { (result, error) -> () in
@@ -165,7 +167,7 @@ class TweetCell: UITableViewCell {
             })
         }
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

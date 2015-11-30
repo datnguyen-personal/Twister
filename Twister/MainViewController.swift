@@ -40,12 +40,26 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tweetTableView.dequeueReusableCellWithIdentifier("tweetCell") as! TweetCell
-        cell.tweet = tweets![indexPath.row]
         
-        cell.replyButton.tag = indexPath.row
+        let tweet = tweets![indexPath.row]
         
-        return cell
+        if tweet.retweet != nil || tweet.inReplyToUserID != nil {
+            let cell = tweetTableView.dequeueReusableCellWithIdentifier("retweetCell") as! RetweetCell
+            cell.tweet = tweet
+            
+            cell.replyButton.tag = indexPath.row
+            
+            return cell
+        } else {
+            let cell = tweetTableView.dequeueReusableCellWithIdentifier("tweetCell") as! TweetCell
+            cell.tweet = tweet
+            
+            cell.replyButton.tag = indexPath.row
+            
+            return cell
+        }
+        
+        
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

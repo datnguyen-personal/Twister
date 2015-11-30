@@ -24,6 +24,8 @@ class Tweet: NSObject {
     
     var currentUserRetweetID: String?
     
+    var inReplyToUserID: String?
+    
     init(dictionary: NSDictionary) {
         self.user = User(dictionary: (dictionary["user"] as? NSDictionary)!)
         self.text = dictionary["text"] as? String
@@ -54,6 +56,12 @@ class Tweet: NSObject {
             self.retweet = Tweet(dictionary: dictionary["retweeted_status"] as! NSDictionary)
         } else {
             self.retweet = nil
+        }
+        
+        if dictionary["in_reply_to_screen_name"] != nil {
+            self.inReplyToUserID = dictionary["in_reply_to_screen_name"] as? String
+        } else {
+            self.inReplyToUserID = nil
         }
         
         if dictionary["current_user_retweet"] != nil {
